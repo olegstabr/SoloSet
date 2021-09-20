@@ -1,0 +1,2 @@
+# SoloSet
+Set card game
