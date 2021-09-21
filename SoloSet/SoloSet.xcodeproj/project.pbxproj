@@ -13,11 +13,12 @@
 		0CE6802826F8CE04000DD9AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6802726F8CE04000DD9AF /* Preview Assets.xcassets */; };
 		0CE6803326F8CE04000DD9AF /* SoloSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6803226F8CE04000DD9AF /* SoloSetTests.swift */; };
 		0CE6803E26F8CE04000DD9AF /* SoloSetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6803D26F8CE04000DD9AF /* SoloSetUITests.swift */; };
-		0CE6804F26FA1AF7000DD9AF /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6804E26FA1AF7000DD9AF /* SetGame.swift */; };
+		0CE6804F26FA1AF7000DD9AF /* CardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6804E26FA1AF7000DD9AF /* CardGame.swift */; };
 		0CE6805126FA2303000DD9AF /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6805026FA2303000DD9AF /* Shape.swift */; };
 		0CE6805426FA242E000DD9AF /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6805326FA242E000DD9AF /* Triangle.swift */; };
 		0CE6805626FA246E000DD9AF /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6805526FA246E000DD9AF /* Diamond.swift */; };
 		0CE6805826FA2479000DD9AF /* Oval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6805726FA2479000DD9AF /* Oval.swift */; };
+		0CE6805A26FA2B99000DD9AF /* SetCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6805926FA2B99000DD9AF /* SetCardGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,11 +51,12 @@
 		0CE6803926F8CE04000DD9AF /* SoloSetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoloSetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE6803D26F8CE04000DD9AF /* SoloSetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloSetUITests.swift; sourceTree = "<group>"; };
 		0CE6803F26F8CE04000DD9AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0CE6804E26FA1AF7000DD9AF /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		0CE6804E26FA1AF7000DD9AF /* CardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGame.swift; sourceTree = "<group>"; };
 		0CE6805026FA2303000DD9AF /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		0CE6805326FA242E000DD9AF /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		0CE6805526FA246E000DD9AF /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		0CE6805726FA2479000DD9AF /* Oval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oval.swift; sourceTree = "<group>"; };
+		0CE6805926FA2B99000DD9AF /* SetCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +155,7 @@
 		0CE6804C26FA1AC5000DD9AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0CE6804E26FA1AF7000DD9AF /* SetGame.swift */,
+				0CE6804E26FA1AF7000DD9AF /* CardGame.swift */,
 				0CE6805226FA2409000DD9AF /* Shapes */,
 			);
 			path = Models;
@@ -162,6 +164,7 @@
 		0CE6804D26FA1ACD000DD9AF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0CE6805926FA2B99000DD9AF /* SetCardGame.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -308,8 +311,9 @@
 			files = (
 				0CE6805626FA246E000DD9AF /* Diamond.swift in Sources */,
 				0CE6802326F8CE04000DD9AF /* ContentView.swift in Sources */,
-				0CE6804F26FA1AF7000DD9AF /* SetGame.swift in Sources */,
+				0CE6804F26FA1AF7000DD9AF /* CardGame.swift in Sources */,
 				0CE6805826FA2479000DD9AF /* Oval.swift in Sources */,
+				0CE6805A26FA2B99000DD9AF /* SetCardGame.swift in Sources */,
 				0CE6805426FA242E000DD9AF /* Triangle.swift in Sources */,
 				0CE6802126F8CE04000DD9AF /* SoloSetApp.swift in Sources */,
 				0CE6805126FA2303000DD9AF /* Shape.swift in Sources */,

@@ -1,6 +1,6 @@
 
 //
-//  SetGame.swift
+//  CardGame.swift
 //  SoloSet
 //
 //  Created by Олег Стабровский on 21.09.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SetGame {
+struct CardGame {
 	private(set) var cards: [Card]
 	
 	init() {
