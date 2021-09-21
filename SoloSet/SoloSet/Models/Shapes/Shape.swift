@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  Shape.swift
 //  SoloSet
 //
 //  Created by Олег Стабровский on 21.09.2021.
@@ -7,23 +7,18 @@
 
 import Foundation
 
-struct Card {
-	var shapesNumber: ShapesNumber
-	var shape: Shape
-	var shading: Shading
-	var color: Color
+protocol Shape {
+	var shapeType: ShapeType { get set }
+	var shading: Shading { get set }
+	var color: Color { get set }
+	
+	func draw()
 }
 
-enum Shape {
+enum ShapeType {
 	case diamond
-	case squiggle
+	case triangle
 	case oval
-}
-
-enum ShapesNumber: Int {
-	case one = 1
-	case two
-	case three
 }
 
 enum Shading {
@@ -37,3 +32,4 @@ enum Color {
 	case green
 	case purple
 }
+
