@@ -12,6 +12,12 @@ struct Oval: Shape {
 	var shading: Shading
 	var color: Color
 	
+	init(shading: Shading, color: Color) {
+		shapeType = .triangle
+		self.shading = shading
+		self.color = color
+	}
+	
 	func draw() {
 		
 	}

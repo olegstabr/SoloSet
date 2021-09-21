@@ -1,3 +1,4 @@
+
 //
 //  SetGame.swift
 //  SoloSet
@@ -8,6 +9,21 @@
 import Foundation
 
 struct SetGame {
+	private(set) var cards: [Card]
+	
+	init() {
+		let startCardsCount = 12
+		cards = []
+		
+		for cardIndex in 0..<startCardsCount {
+			let shape = Triangle(shading: .open, color: .red)
+			cards.append(Card(id: cardIndex, shape: shape, shapesNumber: .one))
+		}
+	}
+	
+	mutating func choose(_ card: Card) {
+		
+	}
 	
 	struct Card: Identifiable {
 		var id: Int
