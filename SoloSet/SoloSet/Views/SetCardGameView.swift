@@ -12,14 +12,22 @@ struct SetCardGameView: View {
     var body: some View {
 		VStack {
 			AspectVGrid(items: setCardGame.cards, aspectRatio: 2/3) { card in
-				CardView(card)
-					.padding(4)
+				cardView(for: card)
 			}
 			.foregroundColor(.red)
 		}
 		.padding(.horizontal)
 		.font(.largeTitle)
     }
+	
+	@ViewBuilder
+	private func cardView(for card: SetCardGame.Card) -> some View {
+		CardView(card)
+			.padding(4)
+			.onTapGesture {
+				setCardGame.choose(card)
+			}
+	}
 }
 
 struct CardView: View {
@@ -35,7 +43,9 @@ struct CardView: View {
 				let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
 					
 				if card.isSelect {
-					shape.opacity(0.5)
+					shape.opacity(0.3)
+					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
+					Text("\(card.id + 1)").font(font(in: geometry.size))
 				} else {
 					shape.fill().foregroundColor(.white)
 					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)

@@ -22,7 +22,9 @@ struct CardGame {
 	}
 	
 	mutating func choose(_ card: Card) {
-		
+		if let choosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
+			cards[choosenIndex].isSelect.toggle()
+		}
 	}
 	
 	struct Card: Identifiable {
