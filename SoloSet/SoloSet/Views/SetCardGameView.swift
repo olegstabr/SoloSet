@@ -51,6 +51,10 @@ struct CardView: View {
 					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
 					Text("\(card.id + 1)").font(font(in: geometry.size))
 				}
+				
+				if card.isMatch {
+					shape.opacity(1)
+				}
 			}
 		})
 	}

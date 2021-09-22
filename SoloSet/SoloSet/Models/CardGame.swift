@@ -23,7 +23,21 @@ struct CardGame {
 	
 	mutating func choose(_ card: Card) {
 		if let choosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
-			cards[choosenIndex].isSelect.toggle()
+			if cards.filter({ $0.isSelect }).count < 3 {
+				cards[choosenIndex].isSelect.toggle()
+				let selectedCards = cards.filter({ $0.isSelect })
+				if let firstCard = selectedCards.first {
+					if selectedCards.filter({ $0.shape.shapeType == firstCard.shape.shapeType }).count == 3 {
+						for cardItem in selectedCards {
+							cards[cardItem.id].isMatch = true
+						}
+					}
+				}
+			} else {
+				if cards[choosenIndex].isSelect {
+					cards[choosenIndex].isSelect.toggle()
+				}
+			}
 		}
 	}
 	
@@ -31,7 +45,8 @@ struct CardGame {
 		var id: Int
 		var shape: Shape
 		var shapesNumber: ShapesNumber
-		var isSelect: Bool = false
+		var isSelect = false
+		var isMatch = false
 	}
 	
 	enum ShapesNumber: Int {
