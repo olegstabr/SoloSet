@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Oval: Shape {
+struct Oval: ShapeProtocol {
 	var shapeType: ShapeType
 	var shading: Shading
 	var color: Color

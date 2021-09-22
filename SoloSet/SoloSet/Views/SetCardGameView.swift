@@ -49,6 +49,8 @@ struct CardView: View {
 				} else {
 					shape.fill().foregroundColor(.white)
 					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
+					Triangle(shading: .open, color: .red)
+						.foregroundColor(.green)
 					Text("\(card.id + 1)").font(font(in: geometry.size))
 				}
 				

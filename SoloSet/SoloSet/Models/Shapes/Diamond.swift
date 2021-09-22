@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Diamond: Shape {
+struct Diamond: ShapeProtocol {
 	var shapeType: ShapeType
 	var shading: Shading
 	var color: Color

@@ -43,7 +43,7 @@ struct CardGame {
 	
 	struct Card: Identifiable {
 		var id: Int
-		var shape: Shape
+		var shape: ShapeProtocol
 		var shapesNumber: ShapesNumber
 		var isSelect = false
 		var isMatch = false
