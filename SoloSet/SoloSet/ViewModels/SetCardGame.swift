@@ -12,7 +12,7 @@ class SetCardGame: ObservableObject {
 	
 	@Published var model = CardGame()
 	
-	func cards() -> [Card] {
+	var cards: [Card] {
 		model.cards
 	}
 	
