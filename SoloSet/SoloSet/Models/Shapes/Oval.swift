@@ -5,9 +5,9 @@
 //  Created by Олег Стабровский on 21.09.2021.
 //
 
-import Foundation
+import SwiftUI
 
-struct Oval: ShapeProtocol {
+struct Oval: ShapeProtocol, Shape {
 	var shapeType: ShapeType
 	var shading: Shading
 	var color: Color
@@ -18,7 +18,8 @@ struct Oval: ShapeProtocol {
 		self.color = color
 	}
 	
-	func draw() {
-		
+	func path(in rect: CGRect) -> Path {
+		var p = Path()
+		return p
 	}
 }

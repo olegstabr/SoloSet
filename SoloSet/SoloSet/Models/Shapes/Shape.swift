@@ -11,8 +11,6 @@ protocol ShapeProtocol {
 	var shapeType: ShapeType { get set }
 	var shading: Shading { get set }
 	var color: Color { get set }
-	
-	func draw()
 }
 
 enum ShapeType {
