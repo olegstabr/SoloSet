@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Oval: ShapeProtocol, Shape {
+struct Oval: ShapeProtocol, View {
 	var shapeType: ShapeType
 	var shading: Shading
 	var color: Color
@@ -18,7 +18,10 @@ struct Oval: ShapeProtocol, Shape {
 		self.color = color
 	}
 	
-	func path(in rect: CGRect) -> Path {
-		return Path()
+	var body: some View {
+		VStack {
+			Capsule()
+				.frame(width: 100, height: 50)
+		}
 	}
 }
