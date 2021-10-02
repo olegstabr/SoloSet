@@ -13,13 +13,12 @@ struct Oval: ShapeProtocol, Shape {
 	var color: Color
 	
 	init(shading: Shading, color: Color) {
-		shapeType = .triangle
+		shapeType = .oval
 		self.shading = shading
 		self.color = color
 	}
 	
 	func path(in rect: CGRect) -> Path {
-		var p = Path()
-		return p
+		return Path()
 	}
 }

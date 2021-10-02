@@ -15,9 +15,11 @@ struct CardGame {
 		let startCardsCount = 12
 		cards = []
 		
-		for cardIndex in 0..<startCardsCount {
-			let shape = Triangle(shading: .open, color: .red)
-			cards.append(Card(id: cardIndex, shape: shape, shapesNumber: .one))
+		for cardIndex in 0..<startCardsCount / 2 {
+			let triangle = Triangle(shading: .open, color: .red)
+			let diamond = Diamond(shading: .open, color: .red)
+			cards.append(Card(id: cardIndex, shape: diamond, shapesNumber: .one))
+			cards.append(Card(id: startCardsCount / 2 + cardIndex, shape: triangle, shapesNumber: .one))
 		}
 	}
 	

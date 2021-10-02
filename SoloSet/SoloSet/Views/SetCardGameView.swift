@@ -41,6 +41,9 @@ struct CardView: View {
 		GeometryReader(content: { geometry in
 			ZStack {
 				let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+				let shapeShading = card.shape.shading
+				let shapeType = card.shape.shapeType
+				let shapeColor = card.shape.color
 					
 				if card.isSelect {
 					shape.opacity(0.3)
@@ -49,8 +52,20 @@ struct CardView: View {
 				} else {
 					shape.fill().foregroundColor(.white)
 					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-					Triangle(shading: .open, color: .red)
-						.foregroundColor(.green)
+					
+					switch shapeType {
+					case ShapeType.oval:
+						Oval(shading: shapeShading, color: shapeColor)
+							.foregroundColor(.green)
+					case ShapeType.triangle:
+						Triangle(shading: shapeShading, color: shapeColor)
+							.foregroundColor(.green)
+					case ShapeType.diamond:
+						Diamond(shading: shapeShading, color: shapeColor)
+							.foregroundColor(.green)
+					}
+					
+					
 					Text("\(card.id + 1)").font(font(in: geometry.size))
 				}
 				
