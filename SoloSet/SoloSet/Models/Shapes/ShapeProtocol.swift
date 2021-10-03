@@ -5,7 +5,7 @@
 //  Created by Олег Стабровский on 21.09.2021.
 //
 
-import Foundation
+import SwiftUI
 
 protocol ShapeProtocol {
 	var shapeType: ShapeType { get set }
@@ -25,10 +25,3 @@ enum Shading {
 	case striped
 	case open
 }
-
-enum Color {
-	case red
-	case green
-	case purple
-}
-
