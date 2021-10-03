@@ -20,12 +20,33 @@ struct Triangle: ShapeProtocol, Shape {
 		self.shapeCount = shapeCount
 	}
 	
-	func path(in rect: CGRect) -> Path {		
+	func path(in rect: CGRect) -> Path {
+		return drawTriangle(in: rect)
+	}
+	
+	private func drawOneTriangle(path: inout Path, startPoint: CGPoint, offset: CGFloat) { // x = maxX / 2, y = maxY / 6
+		let maxX = startPoint.x
+		let maxY = startPoint.y
+		let startPoint = CGPoint(x: startPoint.x, y: startPoint.y + offset)
+		
+		path.move(to: startPoint)											// start drawing point
+		path.addLine(to: CGPoint(x: maxX / 4, y: 5 * maxY + offset))		// left bot
+		path.addLine(to: CGPoint(x: 7 * maxX / 4, y: 5 * maxY + offset))	// right bot
+		path.addLine(to: startPoint)										// top
+	}
+	
+	private func drawTriangle(in rect: CGRect) -> Path {
 		var p = Path()
-		p.move(to: CGPoint(x: rect.maxX / 2, y: rect.maxY / 6))				// start drawing point
-		p.addLine(to: CGPoint(x: rect.maxX / 8, y: 5 * rect.maxY / 6))				// left bot
-		p.addLine(to: CGPoint(x: 7 * rect.maxX / 8, y: 5 * rect.maxY / 6))	// right bot
-		p.addLine(to: CGPoint(x: rect.maxX / 2, y: rect.maxY / 6))			// top
+		let firstThirdMaxX = CGFloat(rect.maxX / 2)
+		let firstThirdMaxY = CGFloat(rect.maxY / CGFloat(shapeCount))
+		let startDrawPoint = CGPoint(x: firstThirdMaxX, y: firstThirdMaxY / 6)
+		
+		var offset = CGFloat(0)
+		for _ in 0..<shapeCount {
+			drawOneTriangle(path: &p, startPoint: startDrawPoint, offset: offset)
+			offset += rect.maxY / CGFloat(shapeCount)
+		}
+		
 		return p
 	}
 }
