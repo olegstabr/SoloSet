@@ -11,6 +11,7 @@ protocol ShapeProtocol {
 	var shapeType: ShapeType { get set }
 	var shading: Shading { get set }
 	var color: Color { get set }
+	var shapeCount: Int { get set }
 }
 
 enum ShapeType {
