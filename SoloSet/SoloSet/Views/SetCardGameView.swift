@@ -44,6 +44,7 @@ struct CardView: View {
 				let shapeShading = card.shape.shading
 				let shapeType = card.shape.shapeType
 				let shapeColor = card.shape.color
+				let shapeCount = card.shape.shapeCount
 					
 				if card.isSelect {
 					shape.opacity(0.3)
@@ -55,13 +56,13 @@ struct CardView: View {
 					
 					switch shapeType {
 					case ShapeType.oval:
-						Oval(shading: shapeShading, color: shapeColor)
+						Oval(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
 							.foregroundColor(.green)
 					case ShapeType.triangle:
-						Triangle(shading: shapeShading, color: shapeColor)
+						Triangle(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
 							.foregroundColor(.green)
 					case ShapeType.diamond:
-						Diamond(shading: shapeShading, color: shapeColor)
+						Diamond(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
 							.foregroundColor(.green)
 					}
 					

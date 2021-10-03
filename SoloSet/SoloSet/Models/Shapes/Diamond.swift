@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct Diamond: ShapeProtocol, Shape {
+	
 	var shapeType: ShapeType
 	var shading: Shading
 	var color: Color
+	var shapeCount: Int
 	
-	init(shading: Shading, color: Color) {
+	init(shading: Shading, color: Color, shapeCount: Int) {
 		shapeType = .diamond
 		self.shading = shading
 		self.color = color
+		self.shapeCount = shapeCount
 	}
 	
 	
