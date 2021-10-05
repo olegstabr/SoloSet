@@ -17,7 +17,7 @@ struct CardGame {
 		
 		for cardIndex in 0..<startCardsCount / 3 {
 			let triangle = Triangle(shading: .open, color: .red, shapeCount: 2)
-			let diamond = Diamond(shading: .open, color: .red, shapeCount: 1)
+			let diamond = Diamond(shading: .open, color: .red, shapeCount: 3)
 			let oval = Oval(shading: .open, color: .red, shapeCount: 2)
 			cards.append(Card(id: cardIndex, shape: diamond, shapesNumber: .one))
 			cards.append(Card(id: startCardsCount / 3 + cardIndex, shape: triangle, shapesNumber: .one))

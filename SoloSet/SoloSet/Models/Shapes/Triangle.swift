@@ -37,11 +37,11 @@ struct Triangle: ShapeProtocol, Shape {
 	
 	private func drawTriangle(in rect: CGRect) -> Path {
 		var p = Path()
+		var offset = CGFloat(0)
 		let firstThirdMaxX = CGFloat(rect.maxX / 2)
 		let firstThirdMaxY = CGFloat(rect.maxY / CGFloat(shapeCount))
 		let startDrawPoint = CGPoint(x: firstThirdMaxX, y: firstThirdMaxY / 6)
 		
-		var offset = CGFloat(0)
 		for _ in 0..<shapeCount {
 			drawOneTriangle(path: &p, startPoint: startDrawPoint, offset: offset)
 			offset += rect.maxY / CGFloat(shapeCount)
