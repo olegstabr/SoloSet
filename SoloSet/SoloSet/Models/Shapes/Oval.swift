@@ -13,6 +13,10 @@ struct Oval: ShapeProtocol, View {
 	var color: Color
 	var shapeCount: Int
 	
+	let numberOfStrips: Int = 5
+	let lineWidth: CGFloat = 3
+	let borderLineWidth: CGFloat = 3
+	
 	init(shading: Shading, color: Color, shapeCount: Int) {
 		shapeType = .oval
 		self.shading = shading
@@ -22,8 +26,27 @@ struct Oval: ShapeProtocol, View {
 	
 	var body: some View {
 		VStack {
-			Capsule()
-				.frame(width: 100, height: 50)
+			ForEach(0..<shapeCount, id:\.self) { index in
+				HStack(spacing: 0) {
+					ForEach(0..<numberOfStrips) { number in
+						Color.white
+						color.frame(width: lineWidth)
+						if number == numberOfStrips - 1 {
+							Color.white
+						}
+					}
+				}.mask(OvalShape())
+				.overlay(OvalShape().stroke(color, lineWidth: borderLineWidth))
+				.frame(width: 90, height: 50)
+			}
 		}
+	}
+}
+
+struct OvalShape: Shape {
+	func path(in rect: CGRect) -> Path {
+		var path = Path()
+		path.addEllipse(in: rect)
+		return path
 	}
 }

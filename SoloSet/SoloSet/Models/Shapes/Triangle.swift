@@ -24,7 +24,7 @@ struct Triangle: ShapeProtocol, Shape {
 		return drawTriangle(in: rect)
 	}
 	
-	private func drawOneTriangle(path: inout Path, startPoint: CGPoint, offset: CGFloat) { // x = maxX / 2, y = maxY / 6
+	private func drawOneTriangle(path: inout Path, startPoint: CGPoint, offset: CGFloat) { 
 		let maxX = startPoint.x
 		let maxY = startPoint.y
 		let startPoint = CGPoint(x: startPoint.x, y: startPoint.y + offset)
