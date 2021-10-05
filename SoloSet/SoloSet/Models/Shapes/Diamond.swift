@@ -32,19 +32,24 @@ struct Diamond: ShapeProtocol, View {
 					case .solid:
 						color
 					case .striped:
-						ForEach(0..<numberOfStrips) { number in
-							Color.white
-							color.frame(width: lineWidth)
-							if number == numberOfStrips - 1 {
-								Color.white
-							}
-						}
+						drawStrips(numberOfStrips: numberOfStrips)
 					case .open:
 						Color.white
 					}
 				}
 				.mask(DiamondShape())
 				.overlay(DiamondShape().stroke(color, lineWidth: borderLineWidth))
+			}
+		}
+	}
+	
+	@ViewBuilder
+	private func drawStrips(numberOfStrips: Int) -> some View {
+		ForEach(0..<numberOfStrips, id: \.self) { number in
+			Color.white
+			color.frame(width: lineWidth)
+			if number == numberOfStrips - 1 {
+				Color.white
 			}
 		}
 	}

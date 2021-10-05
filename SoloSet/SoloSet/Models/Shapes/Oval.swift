@@ -31,13 +31,7 @@ struct Oval: ShapeProtocol, View {
 					case .solid:
 						color
 					case .striped:
-						ForEach(0..<numberOfStrips) { number in
-							Color.white
-							color.frame(width: lineWidth)
-							if number == numberOfStrips - 1 {
-								Color.white
-							}
-						}
+						drawStrips(numberOfStrips: numberOfStrips)
 					case .open:
 						Color.white
 					}
@@ -45,6 +39,17 @@ struct Oval: ShapeProtocol, View {
 				.mask(OvalShape())
 				.overlay(OvalShape().stroke(color, lineWidth: borderLineWidth))
 				.frame(width: 90, height: 50)
+			}
+		}
+	}
+	
+	@ViewBuilder
+	private func drawStrips(numberOfStrips: Int) -> some View {
+		ForEach(0..<numberOfStrips, id: \.self) { number in
+			Color.white
+			color.frame(width: lineWidth)
+			if number == numberOfStrips - 1 {
+				Color.white
 			}
 		}
 	}
