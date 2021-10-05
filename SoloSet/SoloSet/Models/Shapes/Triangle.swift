@@ -40,7 +40,6 @@ struct Triangle: ShapeProtocol, View {
 			}
 		}
 	}
-	
 }
 
 struct TriangleShape: Shape {
