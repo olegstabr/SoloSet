@@ -26,14 +26,17 @@ struct CardGame {
 	}
 	
 	mutating func choose(_ card: Card) {
+		let needMatchCardCount = 3
 		if let choosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
-			if cards.filter({ $0.isSelect }).count < 3 {
+			if cards.filter({ $0.isSelect }).count < needMatchCardCount {
 				cards[choosenIndex].isSelect.toggle()
 				let selectedCards = cards.filter({ $0.isSelect })
 				if let firstCard = selectedCards.first {
-					if selectedCards.filter({ $0.shape.shapeType == firstCard.shape.shapeType }).count == 3 {
+					if selectedCards.filter({ $0.shape.shapeType == firstCard.shape.shapeType }).count == needMatchCardCount {
 						for cardItem in selectedCards {
-							cards[cardItem.id].isMatch = true
+							if let cardItemIndex = cards.firstIndex(where: { $0.id == cardItem.id }) {
+								cards[cardItemIndex].isMatch = true
+							}
 						}
 					}
 				}
