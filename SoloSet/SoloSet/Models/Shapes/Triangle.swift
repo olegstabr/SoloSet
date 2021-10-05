@@ -12,10 +12,9 @@ struct Triangle: ShapeProtocol, View {
 	var shading: Shading
 	var color: Color
 	var shapeCount: Int
-	
-	let numberOfStrips: Int = 5
-	let lineWidth: CGFloat = 3
-	let borderLineWidth: CGFloat = 3
+	var numberOfStrips: Int = 5
+	var lineWidth: CGFloat = 3
+	var borderLineWidth: CGFloat = 3
 	
 	init(shading: Shading, color: Color, shapeCount: Int) {
 		shapeType = .triangle
@@ -28,14 +27,22 @@ struct Triangle: ShapeProtocol, View {
 		VStack {
 			ForEach(0..<shapeCount, id:\.self) { index in
 				HStack(spacing: 0) {
-					ForEach(0..<numberOfStrips) { number in
-						Color.white
-						color.frame(width: lineWidth)
-						if number == numberOfStrips - 1 {
+					switch shading {
+					case .solid:
+						color
+					case .striped:
+						ForEach(0..<numberOfStrips) { number in
 							Color.white
+							color.frame(width: lineWidth)
+							if number == numberOfStrips - 1 {
+								Color.white
+							}
 						}
+					case .open:
+						Color.white
 					}
-				}.mask(TriangleShape())
+				}
+				.mask(TriangleShape())
 				.overlay(TriangleShape().stroke(color, lineWidth: borderLineWidth))
 			}
 		}

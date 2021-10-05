@@ -12,6 +12,9 @@ protocol ShapeProtocol {
 	var shading: Shading { get set }
 	var color: Color { get set }
 	var shapeCount: Int { get set }
+	var numberOfStrips: Int { get set }
+	var lineWidth: CGFloat { get set }
+	var borderLineWidth: CGFloat { get set }
 }
 
 enum ShapeType {

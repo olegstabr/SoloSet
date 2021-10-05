@@ -57,17 +57,15 @@ struct CardView: View {
 					switch shapeType {
 					case ShapeType.oval:
 						Oval(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
-							.foregroundColor(.green)
 					case ShapeType.triangle:
 						Triangle(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
-							.foregroundColor(.green)
 					case ShapeType.diamond:
 						Diamond(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
-							.foregroundColor(.green)
 					}
 					
-					
-					Text("\(card.id + 1)").font(font(in: geometry.size))
+					Text("\(card.id + 1)")
+						.font(font(in: geometry.size))
+						.foregroundColor(.red)
 				}
 				
 				if card.isMatch {
