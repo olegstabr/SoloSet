@@ -6,7 +6,7 @@
 //  Created by Олег Стабровский on 21.09.2021.
 //
 
-import Foundation
+import SwiftUI
 
 struct CardGame {
 	private(set) var cards: [Card]
@@ -15,14 +15,13 @@ struct CardGame {
 		let startCardsCount = 12
 		cards = []
 		
-		for cardIndex in 0..<startCardsCount / 3 {
-			let triangle = Triangle(shading: .solid, color: .green, shapeCount: 3)
-			let diamond = Diamond(shading: .open, color: .blue, shapeCount: 3)
-			let oval = Oval(shading: .striped, color: .orange, shapeCount: 2)
-			cards.append(Card(id: cardIndex, shape: diamond, shapesNumber: .one))
-			cards.append(Card(id: startCardsCount / 3 + cardIndex, shape: triangle, shapesNumber: .one))
-			cards.append(Card(id: 2 * startCardsCount / 3 + cardIndex, shape: oval, shapesNumber: .one))
+		var deck = initDeck()
+		
+		for index in 0..<startCardsCount {
+			cards.append(deck[index])
 		}
+		
+		deck.removeSubrange(0..<startCardsCount)
 	}
 	
 	mutating func choose(_ card: Card) {
@@ -50,17 +49,38 @@ struct CardGame {
 		}
 	}
 	
+	private mutating func initDeck() -> [Card] {
+		var deck: [Card] = []
+		let colors: [Color] = [.orange, .green, .blue]
+		let shapeTypes: [ShapeType] = [.diamond, .triangle, .oval]
+		let shadings: [Shading] = [.striped, .solid, .open]
+		let shapeCount = 3
+		var cardIndex = 0
+		
+		for idx in 1...shapeCount {
+			for _ in shapeTypes {
+				for shading in shadings {
+					for color in colors {
+						let triangle = Triangle(shading: shading, color: color, shapeCount: idx)
+						let diamond = Diamond(shading: shading, color: color, shapeCount: idx)
+						let oval = Oval(shading: shading, color: color, shapeCount: idx)
+						deck.append(Card(id: cardIndex, shape: diamond))
+						deck.append(Card(id: cardIndex + 1, shape: triangle))
+						deck.append(Card(id: cardIndex + 2, shape: oval))
+						cardIndex += 3
+					}
+				}
+			}
+		}
+		
+		deck = deck.shuffled()
+		return deck
+	}
+	
 	struct Card: Identifiable {
 		var id: Int
 		var shape: ShapeProtocol
-		var shapesNumber: ShapesNumber
 		var isSelect = false
 		var isMatch = false
-	}
-	
-	enum ShapesNumber: Int {
-		case one = 1
-		case two
-		case three
 	}
 }
