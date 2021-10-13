@@ -37,6 +37,7 @@ struct CardGame {
 						for cardItem in selectedCards {
 							if let cardItemIndex = cards.firstIndex(where: { $0.id == cardItem.id }) {
 								cards[cardItemIndex].isMatch = true
+								cards[cardItemIndex].isSelect = false
 							}
 						}
 					}
@@ -45,6 +46,16 @@ struct CardGame {
 				if cards[choosenIndex].isSelect {
 					cards[choosenIndex].isSelect.toggle()
 				}
+			}
+		}
+	}
+	
+	mutating func addThreeCards() {
+		let matchedCards = cards.filter({ $0.isMatch })
+		
+		for matchedCard in matchedCards {
+			if let index = cards.firstIndex(where: { $0.id == matchedCard.id }) {
+				cards.remove(at: index)
 			}
 		}
 	}

@@ -25,4 +25,8 @@ class SetCardGame: ObservableObject {
 	func newGame() {
 		model = CardGame()
 	}
+	
+	func addThreeCards() {
+		model.addThreeCards()
+	}
 }

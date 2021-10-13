@@ -22,7 +22,7 @@ struct SetCardGameView: View {
 			.toolbar {
 				ToolbarItem(placement: .primaryAction) {
 					Button(action: {
-						
+						setCardGame.addThreeCards()
 					}, label: {
 						Image(systemName: "plus.circle")
 							.font(.title)
