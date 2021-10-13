@@ -12,7 +12,7 @@ struct CardGame {
 	private(set) var cards: [Card]
 	
 	init() {
-		let startCardsCount = 25
+		let startCardsCount = 12
 		cards = []
 		
 		var deck = initDeck()
