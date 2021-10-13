@@ -38,9 +38,9 @@ struct Oval: ShapeProtocol, View {
 				}
 				.mask(OvalShape())
 				.overlay(OvalShape().stroke(color, lineWidth: borderLineWidth))
-				.frame(width: 90, height: 50)
 			}
 		}
+		.padding(10)
 	}
 	
 	@ViewBuilder

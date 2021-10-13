@@ -84,9 +84,9 @@ struct CardView: View {
 						Diamond(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
 					}
 					
-					Text("\(card.id + 1)")
-						.font(font(in: geometry.size))
-						.foregroundColor(.red)
+//					Text("\(card.id + 1)")
+//						.font(font(in: geometry.size))
+//						.foregroundColor(.red)
 				}
 				
 				if card.isMatch {
