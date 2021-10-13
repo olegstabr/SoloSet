@@ -31,7 +31,7 @@ struct SetCardGameView: View {
 				
 				ToolbarItem(placement: .navigationBarLeading) {
 					Button(action: {
-						
+						setCardGame.newGame()
 					}, label: {
 						Image(systemName: "arrow.clockwise.circle")
 							.font(.title)
