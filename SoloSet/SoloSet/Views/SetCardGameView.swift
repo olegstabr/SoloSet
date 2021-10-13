@@ -10,14 +10,35 @@ import SwiftUI
 struct SetCardGameView: View {
 	@ObservedObject var setCardGame: SetCardGame
     var body: some View {
-		VStack {
-			AspectVGrid(items: setCardGame.cards, aspectRatio: 2/3) { card in
-				cardView(for: card)
+		NavigationView {
+			VStack {
+				AspectVGrid(items: setCardGame.cards, aspectRatio: 2/3) { card in
+					cardView(for: card)
+				}
+				.foregroundColor(.red)
 			}
-			.foregroundColor(.red)
+			.padding(.horizontal)
+			.font(.largeTitle)
+			.toolbar {
+				ToolbarItem(placement: .primaryAction) {
+					Button(action: {
+						
+					}, label: {
+						Image(systemName: "plus.circle")
+							.font(.title)
+					})
+				}
+				
+				ToolbarItem(placement: .navigationBarLeading) {
+					Button(action: {
+						
+					}, label: {
+						Image(systemName: "arrow.clockwise.circle")
+							.font(.title)
+					})
+				}
+			}
 		}
-		.padding(.horizontal)
-		.font(.largeTitle)
     }
 	
 	@ViewBuilder
