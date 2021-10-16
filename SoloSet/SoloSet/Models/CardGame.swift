@@ -43,9 +43,17 @@ struct CardGame {
 					}
 				}
 			} else {
-				if cards[choosenIndex].isSelect {
-					cards[choosenIndex].isSelect.toggle()
+				for item in cards {
+					if let cardIndex = cards.firstIndex(where: { $0.id == item.id }) {
+						cards[cardIndex].isSelect = false
+					}
 				}
+				
+				cards[choosenIndex].isSelect.toggle()
+				
+//				if cards[choosenIndex].isSelect {
+//					cards[choosenIndex].isSelect.toggle()
+//				}
 			}
 		}
 	}

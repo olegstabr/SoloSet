@@ -68,29 +68,32 @@ struct CardView: View {
 				let shapeCount = card.shape.shapeCount
 					
 				if card.isSelect {
-					shape.opacity(0.3)
+					shape
+						.fill()
+						.foregroundColor(.red)
+						.opacity(0.1)
 					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-					Text("\(card.id + 1)").font(font(in: geometry.size))
 				} else {
 					shape.fill().foregroundColor(.white)
 					shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
 					
-					switch shapeType {
-					case ShapeType.oval:
-						Oval(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
-					case ShapeType.triangle:
-						Triangle(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
-					case ShapeType.diamond:
-						Diamond(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
-					}
 					
-//					Text("\(card.id + 1)")
-//						.font(font(in: geometry.size))
-//						.foregroundColor(.red)
+				}
+				
+				switch shapeType {
+				case ShapeType.oval:
+					Oval(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
+				case ShapeType.triangle:
+					Triangle(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
+				case ShapeType.diamond:
+					Diamond(shading: shapeShading, color: shapeColor, shapeCount: shapeCount)
 				}
 				
 				if card.isMatch {
-					shape.opacity(1)
+					shape
+						.fill()
+						.foregroundColor(.green)
+						.opacity(1)
 				}
 			}
 		})
