@@ -23,30 +23,40 @@ struct CardGame {
 	
 	mutating func choose(_ card: Card) {
 		let needMatchCardCount = 3
+		let minSamePropertyCount = 1
 		if let choosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
-			let selectedCardsCount = cards.filter({ $0.isSelect }).count
-			if selectedCardsCount < needMatchCardCount {
-				cards[choosenIndex].isSelect.toggle()
-				let selectedCards = cards.filter({ $0.isSelect })
-				if let firstSelectedCard = selectedCards.first {
-					let selectedCardWithSameShapeCount = selectedCards.filter({ $0.shape.shapeType == firstSelectedCard.shape.shapeType }).count
-					if selectedCardWithSameShapeCount == needMatchCardCount {
-						for cardItem in selectedCards {
-							if let cardItemIndex = cards.firstIndex(where: { $0.id == cardItem.id }) {
-								cards[cardItemIndex].isMatch = true
-								cards[cardItemIndex].isSelect = false
-							}
+			cards[choosenIndex].isSelect.toggle()
+			let selectedCards = cards.filter({ $0.isSelect })
+			let selectedCardsCount = selectedCards.count
+			if selectedCardsCount == needMatchCardCount {
+				let firstSelectedCard = selectedCards.first
+				let sameShapeTypeCount = selectedCards.filter({ $0.shape.shapeType == firstSelectedCard!.shape.shapeType }).count
+				let sameShapeShadingCount = selectedCards.filter({ $0.shape.shading == firstSelectedCard!.shape.shading }).count
+				let sameShapeColorCount = selectedCards.filter({ $0.shape.color == firstSelectedCard!.shape.color }).count
+				let sameShapeCount = selectedCards.filter({ $0.shape.shapeCount == firstSelectedCard!.shape.shapeCount }).count
+				let validShapeTypeProperty = sameShapeTypeCount == needMatchCardCount || sameShapeTypeCount == minSamePropertyCount
+				let validShapeShadingProperty = sameShapeShadingCount == needMatchCardCount || sameShapeShadingCount == minSamePropertyCount
+				let validShapeColorProperty = sameShapeColorCount == needMatchCardCount || sameShapeColorCount == minSamePropertyCount
+				let validShapeCountProperty = sameShapeCount == needMatchCardCount || sameShapeCount == minSamePropertyCount
+				
+				if validShapeTypeProperty && validShapeShadingProperty && validShapeColorProperty && validShapeCountProperty {
+					for selectedCard in selectedCards {
+						if let selectedCardIndex = cards.firstIndex(where: { $0.id == selectedCard.id }) {
+							cards[selectedCardIndex].isSelect = false
+							cards[selectedCardIndex].isMatch = true
 						}
 					}
 				}
 			} else {
-				for item in cards {
-					if let cardIndex = cards.firstIndex(where: { $0.id == item.id }) {
-						cards[cardIndex].isSelect = false
+				for selectedCard in selectedCards {
+					if selectedCard.id == card.id {
+						continue
+					}
+					
+					if let selectedCardIndex = cards.firstIndex(where: { $0.id == selectedCard.id }) {
+						cards[selectedCardIndex].isSelect = false
 					}
 				}
-				
-				cards[choosenIndex].isSelect.toggle()
 			}
 		}
 	}
