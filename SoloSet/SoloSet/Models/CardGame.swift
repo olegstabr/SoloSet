@@ -10,18 +10,15 @@ import SwiftUI
 
 struct CardGame {
 	private(set) var cards: [Card]
+	private(set) var deck: [Card]
 	
 	init() {
 		let startCardsCount = 12
 		cards = []
+		deck = []
+		deck = initDeck()
 		
-		var deck = initDeck()
-		
-		for index in 0..<startCardsCount {
-			cards.append(deck[index])
-		}
-		
-		deck.removeSubrange(0..<startCardsCount)
+		addCardsFromDeck(cards: &cards, deck: &deck, count: startCardsCount)
 	}
 	
 	mutating func choose(_ card: Card) {
@@ -50,15 +47,25 @@ struct CardGame {
 				}
 				
 				cards[choosenIndex].isSelect.toggle()
-				
-//				if cards[choosenIndex].isSelect {
-//					cards[choosenIndex].isSelect.toggle()
-//				}
 			}
 		}
 	}
 	
 	mutating func addThreeCards() {
+		let addCardsCount = 3
+		removeMatchedCards()
+		addCardsFromDeck(cards: &cards, deck: &deck, count: addCardsCount)
+	}
+	
+	private func addCardsFromDeck(cards: inout [Card], deck: inout [Card], count: Int) {
+		for index in 0..<count {
+			cards.append(deck[index])
+		}
+		
+		deck.removeSubrange(0..<count)
+	}
+	
+	private mutating func removeMatchedCards() {
 		let matchedCards = cards.filter({ $0.isMatch })
 		
 		for matchedCard in matchedCards {
