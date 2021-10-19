@@ -47,7 +47,7 @@ struct CardGame {
 						}
 					}
 				}
-			} else {
+			} else if  selectedCardsCount > needMatchCardCount {
 				for selectedCard in selectedCards {
 					if selectedCard.id == card.id {
 						continue
