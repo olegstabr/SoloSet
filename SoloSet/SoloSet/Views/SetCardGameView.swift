@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SetCardGameView: View {
 	@ObservedObject var setCardGame: SetCardGame
+	@State private  var addCardsResult: Bool = true
     var body: some View {
 		NavigationView {
 			VStack {
@@ -16,17 +17,25 @@ struct SetCardGameView: View {
 					cardView(for: card)
 				}
 				.foregroundColor(.red)
+				Text("\(setCardGame.deckCount)")
 			}
 			.padding(.horizontal)
 			.font(.largeTitle)
 			.toolbar {
 				ToolbarItem(placement: .primaryAction) {
-					Button(action: {
-						setCardGame.addThreeCards()
-					}, label: {
-						Image(systemName: "plus.circle")
-							.font(.title)
-					})
+					if #available(iOS 15.0, *) {
+						Button(action: {
+							setCardGame.addThreeCards()
+						}, label: {
+							Image(systemName: "plus.circle")
+								.font(.title)
+						})
+							.alert("Important message", isPresented: $setCardGame.isDeckEmpty) {
+							Button("OK", role: .cancel) { }
+						}
+					} else {
+						// Fallback on earlier versions
+					}
 				}
 				
 				ToolbarItem(placement: .navigationBarLeading) {

@@ -11,9 +11,14 @@ class SetCardGame: ObservableObject {
 	typealias Card = CardGame.Card
 	
 	@Published var model = CardGame()
+	@Published var isDeckEmpty: Bool = false
 	
 	var cards: [Card] {
 		model.cards
+	}
+	
+	var deckCount: Int {
+		cards.count
 	}
 	
 	// MARK: - Intent(s)
@@ -27,6 +32,10 @@ class SetCardGame: ObservableObject {
 	}
 	
 	func addThreeCards() {
-		model.addThreeCards()
+		let addCardsResult = model.addThreeCards()
+		
+		if !addCardsResult {
+			self.isDeckEmpty.toggle()
+		}
 	}
 }

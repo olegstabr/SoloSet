@@ -18,7 +18,7 @@ struct CardGame {
 		deck = []
 		deck = initDeck()
 		
-		addCardsFromDeck(cards: &cards, deck: &deck, count: startCardsCount)
+		_ = addCardsFromDeck(cards: &cards, deck: &deck, count: startCardsCount)
 	}
 	
 	mutating func choose(_ card: Card) {
@@ -61,18 +61,30 @@ struct CardGame {
 		}
 	}
 	
-	mutating func addThreeCards() {
+	mutating func addThreeCards() -> Bool{
 		let addCardsCount = 3
 		removeMatchedCards()
-		addCardsFromDeck(cards: &cards, deck: &deck, count: addCardsCount)
+		return addCardsFromDeck(cards: &cards, deck: &deck, count: addCardsCount)
 	}
 	
-	private func addCardsFromDeck(cards: inout [Card], deck: inout [Card], count: Int) {
+	private func addCardsFromDeck(cards: inout [Card], deck: inout [Card], count: Int) -> Bool{
+		var count = count
+		let deckCount = deck.count
+		
+		if deckCount == 0 {
+			return false
+		}
+
+		if deckCount < count {
+			count = deckCount
+		}
+		
 		for index in 0..<count {
 			cards.append(deck[index])
 		}
 		
 		deck.removeSubrange(0..<count)
+		return true
 	}
 	
 	private mutating func removeMatchedCards() {
@@ -94,16 +106,22 @@ struct CardGame {
 		var cardIndex = 0
 		
 		for idx in 1...shapeCount {
-			for _ in shapeTypes {
+			for shapeType in shapeTypes {
 				for shading in shadings {
 					for color in colors {
-						let triangle = Triangle(shading: shading, color: color, shapeCount: idx)
-						let diamond = Diamond(shading: shading, color: color, shapeCount: idx)
-						let oval = Oval(shading: shading, color: color, shapeCount: idx)
-						deck.append(Card(id: cardIndex, shape: diamond))
-						deck.append(Card(id: cardIndex + 1, shape: triangle))
-						deck.append(Card(id: cardIndex + 2, shape: oval))
-						cardIndex += 3
+						var shape: ShapeProtocol
+						
+						switch shapeType {
+						case .diamond:
+							shape = Diamond(shading: shading, color: color, shapeCount: idx)
+						case .triangle:
+							shape = Triangle(shading: shading, color: color, shapeCount: idx)
+						case .oval:
+							shape = Oval(shading: shading, color: color, shapeCount: idx)
+						}
+						
+						deck.append(Card(id: cardIndex, shape: shape))
+						cardIndex += 1
 					}
 				}
 			}
