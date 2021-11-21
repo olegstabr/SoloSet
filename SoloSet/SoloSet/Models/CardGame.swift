@@ -11,10 +11,12 @@ import SwiftUI
 struct CardGame {
 	private(set) var cards: [Card]
 	private(set) var deck: [Card]
+	private(set) var discardPile: [Card]
 	
 	init() {
 		let startCardsCount = 12
 		cards = []
+		discardPile = []
 		deck = []
 		deck = initDeck()
 		
@@ -47,6 +49,8 @@ struct CardGame {
 						}
 					}
 				}
+				
+				removeMatchedCards()
 			} else if  selectedCardsCount > needMatchCardCount {
 				for selectedCard in selectedCards {
 					if selectedCard.id == card.id {
@@ -63,7 +67,6 @@ struct CardGame {
 	
 	mutating func addThreeCards() -> Bool{
 		let addCardsCount = 3
-		removeMatchedCards()
 		return addCardsFromDeck(cards: &cards, deck: &deck, count: addCardsCount)
 	}
 	
@@ -80,6 +83,7 @@ struct CardGame {
 		}
 		
 		for index in 0..<count {
+			deck[index].isFaceUp = true
 			cards.append(deck[index])
 		}
 		
@@ -89,6 +93,8 @@ struct CardGame {
 	
 	private mutating func removeMatchedCards() {
 		let matchedCards = cards.filter({ $0.isMatch })
+		
+		discardPile.append(contentsOf: matchedCards)
 		
 		for matchedCard in matchedCards {
 			if let index = cards.firstIndex(where: { $0.id == matchedCard.id }) {
@@ -136,5 +142,6 @@ struct CardGame {
 		var shape: ShapeProtocol
 		var isSelect = false
 		var isMatch = false
+		var isFaceUp = false
 	}
 }

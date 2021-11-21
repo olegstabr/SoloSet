@@ -17,6 +17,14 @@ class SetCardGame: ObservableObject {
 		model.cards
 	}
 	
+	var deck: [Card] {
+		model.deck
+	}
+	
+	var discardPile: [Card] {
+		model.discardPile
+	}
+	
 	var deckCount: Int {
 		cards.count
 	}
