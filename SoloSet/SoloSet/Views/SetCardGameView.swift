@@ -10,6 +10,8 @@ import SwiftUI
 struct SetCardGameView: View {
 	@ObservedObject var setCardGame: SetCardGame
 	@State private var addCardsResult: Bool = true
+	@State private var firstDeckWasClicked: Bool = false
+	@State private var dealt = Set<Int>()
 	@Namespace private var dealingNamespace
 	
     var body: some View {
@@ -56,11 +58,8 @@ struct SetCardGameView: View {
 			else {
 				ForEach(setCardGame.discardPile) { card in
 					CardView(card)
-						.matchedGeometryEffect(id: card.id, in: dealingNamespace)
-						.transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
-						.onTapGesture {
-							
-						}
+//						.matchedGeometryEffect(id: card.id, in: dealingNamespace)
+//						.transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
 				}
 			}
 		}
@@ -79,8 +78,21 @@ struct SetCardGameView: View {
 			.frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
 			.foregroundColor(.red)
 			.onTapGesture {
-				withAnimation {
-					setCardGame.addThreeCards()
+				var addCardsCount = 12
+				
+				if !firstDeckWasClicked {
+					firstDeckWasClicked.toggle()
+				} else {
+					addCardsCount = 3
+				}
+				
+				for i in 0..<addCardsCount {
+					let card = setCardGame.deck[i]
+					
+					withAnimation(dealAnimation(for: card)) {
+						deal(card)
+						setCardGame.addCardFromDeck(card)
+					}
 				}
 			}
 		}
@@ -88,14 +100,36 @@ struct SetCardGameView: View {
 	
 	@ViewBuilder
 	private func cardView(for card: SetCardGame.Card) -> some View {
-		CardView(card)
-			.matchedGeometryEffect(id: card.id, in: dealingNamespace)
-			.transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
-			.zIndex(zIndex(of: card))
-			.padding(4)
-			.onTapGesture {
-				setCardGame.choose(card)
-			}
+		if isUndealt(card) {
+			Color.clear
+		} else {
+			CardView(card)
+				.matchedGeometryEffect(id: card.id, in: dealingNamespace)
+				.transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
+				.zIndex(zIndex(of: card))
+				.padding(4)
+				.onTapGesture {
+					withAnimation {
+						setCardGame.choose(card)
+					}
+				}
+		}
+	}
+	
+	private func dealAnimation(for card: SetCardGame.Card) -> Animation {
+		var delay = 0.0
+		if let index = setCardGame.cards.firstIndex(where: { $0.id == card.id }) {
+			delay = Double(index) * (CardConstants.totalDealDuration /  Double(setCardGame.cards.count))
+		}
+		return .easeInOut(duration: CardConstants.dealDuration).delay(delay)
+	}
+	
+	private func deal(_ card: SetCardGame.Card) {
+		dealt.insert(card.id)
+	}
+	
+	private func isUndealt(_ card: SetCardGame.Card) -> Bool {
+		!dealt.contains(card.id)
 	}
 	
 	private func zIndex (of card: SetCardGame.Card) -> Double {
@@ -153,13 +187,6 @@ struct CardView: View {
 						.foregroundColor(.red)
 						.opacity(1)
 				}
-				
-//				if card.isMatch {
-//					shape
-//						.fill()
-//						.foregroundColor(.green)
-//						.opacity(1)
-//				}
 			}
 		})
 	}

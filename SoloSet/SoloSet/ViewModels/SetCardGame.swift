@@ -46,4 +46,8 @@ class SetCardGame: ObservableObject {
 			self.isDeckEmpty.toggle()
 		}
 	}
+	
+	func addCardFromDeck(_ card: Card) {
+		model.addCardFromDeck(card)
+	}
 }

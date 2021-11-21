@@ -14,7 +14,7 @@ struct CardGame {
 	private(set) var discardPile: [Card]
 	
 	init() {
-		let startCardsCount = 12
+		let startCardsCount = 0
 		cards = []
 		discardPile = []
 		deck = []
@@ -62,6 +62,14 @@ struct CardGame {
 					}
 				}
 			}
+		}
+	}
+	
+	mutating func addCardFromDeck(_ card: Card) {
+		if let index = deck.firstIndex(where: { $0.id == card.id }) {
+			deck[index].isFaceUp = true
+			cards.append(deck[index])
+			deck.remove(at: index)
 		}
 	}
 	
