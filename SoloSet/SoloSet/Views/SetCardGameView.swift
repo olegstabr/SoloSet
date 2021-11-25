@@ -12,12 +12,14 @@ struct SetCardGameView: View {
 	@State private var addCardsResult: Bool = true
 	@State private var firstDeckWasClicked: Bool = false
 	@State private var dealt = Set<Int>()
+	@State private var startCount = 12
 	@Namespace private var dealingNamespace
 	
     var body: some View {
 		NavigationView {
 			VStack {
-				AspectVGrid(items: setCardGame.cards, aspectRatio: 2/3) { card in
+				let cards: [SetCardGame.Card] = Array(setCardGame.deck[0..<startCount])
+				AspectVGrid(items: cards, aspectRatio: 2/3) { card in
 					cardView(for: card)
 				}
 				.foregroundColor(.red)
@@ -35,6 +37,9 @@ struct SetCardGameView: View {
 				ToolbarItem(placement: .navigationBarLeading) {
 					Button(action: {
 						withAnimation {
+							dealt = []
+							startCount = 12
+							firstDeckWasClicked = false
 							setCardGame.newGame()
 						}
 					}, label: {
@@ -58,8 +63,8 @@ struct SetCardGameView: View {
 			else {
 				ForEach(setCardGame.discardPile) { card in
 					CardView(card)
-//						.matchedGeometryEffect(id: card.id, in: dealingNamespace)
-//						.transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
+						.matchedGeometryEffect(id: card.id, in: dealingNamespace)
+						.transition(AnyTransition.asymmetric(insertion: .scale, removal: .identity))
 				}
 			}
 		}
@@ -69,7 +74,7 @@ struct SetCardGameView: View {
 	
 	var deckBody: some View {
 		ZStack {
-			ForEach(setCardGame.deck) { card in
+			ForEach(setCardGame.deck.filter(isUndealt)) { card in
 				CardView(card)
 					.matchedGeometryEffect(id: card.id, in: dealingNamespace)
 					.transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
@@ -78,20 +83,18 @@ struct SetCardGameView: View {
 			.frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
 			.foregroundColor(.red)
 			.onTapGesture {
-				var addCardsCount = 12
-				
 				if !firstDeckWasClicked {
 					firstDeckWasClicked.toggle()
 				} else {
-					addCardsCount = 3
+					startCount += 3
 				}
-				
-				for i in 0..<addCardsCount {
+
+				for i in 0..<startCount {
 					let card = setCardGame.deck[i]
-					
+
 					withAnimation(dealAnimation(for: card)) {
 						deal(card)
-						setCardGame.addCardFromDeck(card)
+//						setCardGame.addCardFromDeck(card)
 					}
 				}
 			}
@@ -118,8 +121,8 @@ struct SetCardGameView: View {
 	
 	private func dealAnimation(for card: SetCardGame.Card) -> Animation {
 		var delay = 0.0
-		if let index = setCardGame.cards.firstIndex(where: { $0.id == card.id }) {
-			delay = Double(index) * (CardConstants.totalDealDuration /  Double(setCardGame.cards.count))
+		if let index = setCardGame.deck.firstIndex(where: { $0.id == card.id }) {
+			delay = Double(index) * (CardConstants.totalDealDuration /  Double(12))
 		}
 		return .easeInOut(duration: CardConstants.dealDuration).delay(delay)
 	}
@@ -138,7 +141,7 @@ struct SetCardGameView: View {
 	
 	private struct CardConstants {
 		static let aspectRatio: CGFloat = 2/3
-		static let dealDuration: Double = 0.3
+		static let dealDuration: Double = 0.5
 		static let totalDealDuration: Double = 3
 		static let undealtHeight: CGFloat = 90
 		static let undealtWidth = undealtHeight * aspectRatio
@@ -166,7 +169,7 @@ struct CardView: View {
 						shape
 							.fill()
 							.foregroundColor(.red)
-							.opacity(0.1)
+							.opacity(0.4)
 						shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
 					} else {
 						shape.fill().foregroundColor(.white)
